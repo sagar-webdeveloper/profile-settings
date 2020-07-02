@@ -1,0 +1,26 @@
+<div>
+    <h1>{{'HOME.TITLE' | translate}}</h1>
+    <label for="">
+       {{'HOME.SELECT' | translate}}
+        <select #langselect (change)="translate.use(langselect.value)">
+            <option *ngFor="let lang of translate.getLangs()" [value]="lang">{{lang}}</option>
+        </select>
+    </label>
+    <div>
+        <p>Username: <span>{{user?.username}}</span></p>
+        <p *ngIf="user && user.email">Email: <span>{{user?.email}}</span></p>
+    </div>
+    <div>
+        <label>First Name:</label>
+        <input type="text" [(ngModel)]="user.firstName" *ngIf="user" placeholder="Enter FirstName" />
+        <br><br>
+        <label>Last Name:</label>
+        <input *ngIf="user" type="text" [(ngModel)]="user.lastName" placeholder="Enter LastName" />
+        <br><br>
+        <br><br>
+        <input type="button" value="Save" (click)="saveProfileName()" [disabled]="isLoading || isSavingProfile" />
+    </div>
+    <p *ngIf="isLoading">Loading Profile...</p>
+    <p *ngIf="isSavingProfile">Saving Profile...</p>
+    <p *ngIf="errMsg!=''">{{errMsg}}</p>
+</div>
